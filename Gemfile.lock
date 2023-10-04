@@ -119,8 +119,21 @@ GEM
     console (1.23.2)
       fiber-annotation
       fiber-local
+    console-adapter-rails (0.3.4)
+      console (~> 1.21)
+      fiber-storage (~> 0.1)
+      rails (>= 6.1)
+    console-output-datadog (0.3.0)
+      console
+      ddtrace (~> 1.0)
     crass (1.0.6)
     date (3.3.3)
+    ddtrace (1.14.0)
+      debase-ruby_core_source (= 3.2.1)
+      libdatadog (~> 3.0.0.1.0)
+      libddwaf (~> 1.9.0.0.0)
+      msgpack
+    debase-ruby_core_source (3.2.1)
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
@@ -140,8 +153,10 @@ GEM
       process-metrics (~> 0.2.0)
       protocol-rack (~> 0.1)
       samovar (~> 2.1)
+    ffi (1.16.3)
     fiber-annotation (0.2.0)
     fiber-local (1.0.0)
+    fiber-storage (0.1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -157,6 +172,15 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    libdatadog (3.0.0.1.0)
+    libdatadog (3.0.0.1.0-aarch64-linux)
+    libdatadog (3.0.0.1.0-x86_64-linux)
+    libddwaf (1.9.0.0.1-aarch64-linux)
+      ffi (~> 1.0)
+    libddwaf (1.9.0.0.1-arm64-darwin)
+      ffi (~> 1.0)
+    libddwaf (1.9.0.0.1-x86_64-linux)
+      ffi (~> 1.0)
     localhost (1.1.10)
     loofah (2.21.3)
       crass (~> 1.0.2)
@@ -281,6 +305,9 @@ GEM
     timeout (0.4.0)
     timers (4.3.5)
     traces (0.11.1)
+    traces-backend-datadog (0.5.0)
+      ddtrace (~> 1.2)
+      traces (~> 0.10)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -309,6 +336,8 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   capybara
+  console-adapter-rails (~> 0.3.4)
+  console-output-datadog (~> 0.3.0)
   debug
   falcon
   importmap-rails
@@ -319,6 +348,7 @@ DEPENDENCIES
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
+  traces-backend-datadog (~> 0.5.0)
   turbo-rails
   tzinfo-data
   web-console

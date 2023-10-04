@@ -66,3 +66,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "console-adapter-rails", "~> 0.3.4"
+
+gem "console-output-datadog", "~> 0.3.0"
+gem "traces-backend-datadog", "~> 0.5.0"
