@@ -13,3 +13,23 @@
  *= require_tree .
  *= require_self
  */
+
+.game .board {
+	margin: auto;
+}
+
+.game .board {
+	border-collapse: collapse;
+}
+
+.game .board td {
+	text-align: center;
+	vertical-align: middle;
+	
+	width: 4ch;
+	height: 4ch;
+}
+
+.game .message {
+	text-align: center;
+}

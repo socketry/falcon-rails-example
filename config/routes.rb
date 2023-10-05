@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
+  # WebSocket chat example:
   root "chat#index"
-
-  # WebSocket server:
   get "chat/connect", to: "chat#connect"
+
+  # Stock ticker example:
+  get "game", to: "game#index"
+  get "/live", to: "game#live"
 end
