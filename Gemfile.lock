@@ -98,6 +98,16 @@ GEM
       async
     async-pool (0.4.0)
       async (>= 1.25)
+    async-redis (0.8.0)
+      async (>= 1.8, < 3.0)
+      async-io (~> 1.10)
+      async-pool (~> 0.2)
+      protocol-redis (~> 0.8.0)
+    async-websocket (0.25.1)
+      async-http (~> 0.54)
+      async-io (~> 1.23)
+      protocol-rack (~> 0.1)
+      protocol-websocket (~> 0.11)
     base64 (0.1.1)
     bigdecimal (3.1.4)
     bindex (0.8.1)
@@ -227,6 +237,9 @@ GEM
     protocol-rack (0.2.6)
       protocol-http (~> 0.23)
       rack (>= 1.0)
+    protocol-redis (0.8.0)
+    protocol-websocket (0.12.1)
+      protocol-http (~> 0.2)
     psych (5.1.0)
       stringio
     public_suffix (5.0.3)
@@ -271,9 +284,9 @@ GEM
     rake (13.0.6)
     rdoc (6.5.0)
       psych (>= 4.0.0)
-    redis (5.0.6)
+    redis (5.0.7)
       redis-client (>= 0.9.0)
-    redis-client (0.14.1)
+    redis-client (0.17.0)
       connection_pool
     regexp_parser (2.8.1)
     reline (0.3.9)
@@ -302,6 +315,7 @@ GEM
       railties (>= 6.0.0)
     stringio (3.0.8)
     thor (1.2.2)
+    thread-local (1.1.0)
     timeout (0.4.0)
     timers (4.3.5)
     traces (0.11.1)
@@ -334,6 +348,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  async-redis (~> 0.8.0)
+  async-websocket (~> 0.25.1)
   bootsnap
   capybara
   console-adapter-rails (~> 0.3.4)
@@ -348,6 +364,7 @@ DEPENDENCIES
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
+  thread-local (~> 1.1)
   traces-backend-datadog (~> 0.5.0)
   turbo-rails
   tzinfo-data
