@@ -90,9 +90,6 @@ class GameTag < Live::View
 		end
 	end
 	
-	class State
-	end
-	
 	def initialize(...)
 		super
 		
