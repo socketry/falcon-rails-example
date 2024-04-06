@@ -1,7 +1,8 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.0.rc2"
+gem "rails", "~> 7.1"
+# gem "rails", path: "../../ioquatix/rails"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
