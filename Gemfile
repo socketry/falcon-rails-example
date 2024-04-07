@@ -12,6 +12,7 @@ gem "sqlite3", "~> 1.4"
 
 # Use the Falcon web server [https://github.com/socketry/falcon]
 gem 'falcon'
+gem 'puma', "~> 6.1.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
