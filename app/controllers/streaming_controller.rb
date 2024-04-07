@@ -1,5 +1,5 @@
 class StreamingController < ApplicationController
-  def simple
+  def index
     body = Enumerator.new do |enumerator|
       100.downto(0) do |i|
         enumerator << "#{i} bottles of beer on the wall\n"

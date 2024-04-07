@@ -14,6 +14,10 @@ gem "sqlite3", "~> 1.4"
 gem 'falcon'
 gem 'puma', "~> 6.1.0"
 
+# Use the async-job job server
+gem "async-job", "~> 0.5"
+gem "async-job-adapter-active_job", "~> 0.7"
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 

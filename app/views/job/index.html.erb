@@ -1,0 +1,26 @@
+<h1>Async Job</h1>
+
+<form action="<%= job_execute_path %>" method="post">
+	<select name="queue">
+		<% Rails.application.config.async_job.backends.each do |name, _| %>
+		<option value="<%= name %>"><%= name %></option>
+		<% end %>
+	</select>
+	<input type="submit" value="Submit" />
+</form>
+
+<h2>Job Executions</h2>
+<%= turbo_stream_from "job_executions" %>
+
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Data</th>
+		</tr>
+	</thead>
+	<tbody id="job_executions">
+		<%= render @job_executions %>
+	</tbody>
+</table>

@@ -28,6 +28,8 @@ class ChatController < ApplicationController
         while message = connection.read
           client.publish(channel, message.buffer)
         end
+      rescue Protocol::WebSocket::ClosedError
+        # Ignore.
       ensure
         subscription_task&.stop
       end
