@@ -1,4 +1,3 @@
-
 function connectToChatServer(url) {
 	console.log("WebSocket Connecting...", url);
 	var server = new WebSocket(url.href);
