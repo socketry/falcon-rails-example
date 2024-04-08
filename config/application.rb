@@ -23,5 +23,10 @@ module Example
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Configures the locality of most of Rails internal state. If you use a
+    # fiber based server or job processor (e.g. `falcon`), you should set it to
+    # `:fiber`. Otherwise it is best to use `:thread` locality. Defaults to `:thread`.
+    config.active_support.isolation_level = :fiber
   end
 end
