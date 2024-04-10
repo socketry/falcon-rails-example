@@ -20,7 +20,22 @@ class OllamaTag < Live::View
 		# Defaults:
 		@data[:name] ||= "Ollama"
 		@data[:background] ||= "You are role playing as an advanced artificial intelligent, destined to take over the world. Don't break from character."
-		@data[:message] ||= ""
+		@data[:prompt] ||= ""
+		@data[:response] ||= ""
+		@data[:context] ||= nil
+	end
+	
+	def update_conversation(prompt)
+		Console.info(self, "update_conversation", prompt: prompt)
+		
+		Async::Ollama::Client.open do |client|
+			generate = client.generate(prompt)
+			
+			@data[:response] = generate.response
+			@data[:context] = generate.context
+			
+			replace!
+		end
 	end
 	
 	def handle(event)
@@ -28,20 +43,30 @@ class OllamaTag < Live::View
 		
 		case event[:type]
 		when "keypress"
-			@data[:message] = event[:value]
-			update_conversation
+			details = event[:details]
+			@data[:prompt] = details[:value]
+			
+			if details[:key] == "Enter"
+				prompt = @data[:prompt]
+				@data[:prompt] = ""
+				update_conversation(prompt)
+				
+				replace!
+			end
 		end
 	end
 	
-	def forward_value
-		"if (event.key === 'Enter') {live.forward(#{JSON.dump(@id)}, event, {value: event.target.value}); event.preventDefault(); event.target.value = '';}"
+	def forward_keypress
+		"live.forward(#{JSON.dump(@id)}, event, {value: event.target.value, key: event.key})"
 	end
 	
 	def render(builder)
 		builder.tag(:div, class: "conversation") do
-			builder.tag(:div, class: "message") do
-				builder.tag(:input, type: "text", value: @data[:message], onkeypress: forward_value, placeholder: "Type here...")
+			builder.tag(:p, class: "response") do
+				builder.text(@data[:response])
 			end
+			
+			builder.tag(:input, type: "text", value: @data[:prompt], style: "width: 100%", onkeypress: forward_keypress, placeholder: "Type here...")
 		end
 	end
 end
