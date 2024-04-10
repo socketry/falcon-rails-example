@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'ollama/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root "welcome#index"
 
@@ -21,4 +22,8 @@ Rails.application.routes.draw do
   # Job Example:
   get "job/index"
   post "job/execute"
+
+  # Ollama Example:
+  get "ollama/index"
+  match "ollama/live", via: [:get, :connect]
 end

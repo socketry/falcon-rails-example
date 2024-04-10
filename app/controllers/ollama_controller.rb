@@ -1,10 +1,10 @@
 require 'async/websocket/adapters/rails'
 
-class GameController < ApplicationController
-  RESOLVER = Live::Resolver.allow(GameTag)
+class OllamaController < ApplicationController
+  RESOLVER = Live::Resolver.allow(OllamaTag)
 
   def index
-    @tag = GameTag.new('game')
+    @tag = OllamaTag.new('ollama')
   end
 
   skip_before_action :verify_authenticity_token, only: :live

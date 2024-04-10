@@ -18,6 +18,8 @@ gem 'puma', "~> 6.1.0"
 gem "async-job", "~> 0.5"
 gem "async-job-adapter-active_job", "~> 0.7"
 
+gem "async-ollama"
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 
