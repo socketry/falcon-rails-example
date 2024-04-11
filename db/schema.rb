@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_25_111326) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_11_023621) do
+  create_table "conversation_messages", force: :cascade do |t|
+    t.integer "conversation_id", null: false
+    t.json "context"
+    t.text "prompt"
+    t.text "response"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_conversation_messages_on_conversation_id"
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.string "model", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "job_executions", force: :cascade do |t|
     t.string "name"
     t.json "data"
@@ -18,4 +34,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_25_111326) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "conversation_messages", "conversations"
 end

@@ -1,4 +1,3 @@
-require 'game_tag'
 require 'async/websocket/adapters/rails'
 
 class GameController < ApplicationController

@@ -104,6 +104,9 @@ GEM
       async-job (~> 0.5)
       async-service (~> 0.12)
       thread-local
+    async-ollama (0.1.0)
+      async
+      async-rest (~> 0.13.0)
     async-pool (0.4.0)
       async (>= 1.25)
     async-redis (0.8.0)
@@ -111,6 +114,9 @@ GEM
       async-io (~> 1.10)
       async-pool (~> 0.2)
       protocol-redis (~> 0.8.0)
+    async-rest (0.13.0)
+      async-http (~> 0.42)
+      protocol-http (~> 0.7)
     async-service (0.12.0)
       async
       async-container (~> 0.16)
@@ -236,24 +242,24 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.1)
-    nokogiri (1.16.3-aarch64-linux)
+    nokogiri (1.16.4-aarch64-linux)
       racc (~> 1.4)
-    nokogiri (1.16.3-arm-linux)
+    nokogiri (1.16.4-arm-linux)
       racc (~> 1.4)
-    nokogiri (1.16.3-arm64-darwin)
+    nokogiri (1.16.4-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.3-x86-linux)
+    nokogiri (1.16.4-x86-linux)
       racc (~> 1.4)
-    nokogiri (1.16.3-x86_64-darwin)
+    nokogiri (1.16.4-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.3-x86_64-linux)
+    nokogiri (1.16.4-x86_64-linux)
       racc (~> 1.4)
     openssl (3.2.0)
     process-metrics (0.2.1)
       console (~> 1.8)
       samovar (~> 2.1)
     protocol-hpack (1.4.3)
-    protocol-http (0.26.1)
+    protocol-http (0.26.2)
     protocol-http1 (0.19.0)
       protocol-http (~> 0.22)
     protocol-http2 (0.16.0)
@@ -316,7 +322,7 @@ GEM
     redis-client (0.21.1)
       connection_pool
     regexp_parser (2.9.0)
-    reline (0.5.0)
+    reline (0.5.1)
       io-console (~> 0.5)
     rexml (3.2.6)
     rubyzip (2.3.2)
@@ -384,6 +390,7 @@ PLATFORMS
 DEPENDENCIES
   async-job (~> 0.5)
   async-job-adapter-active_job (~> 0.7)
+  async-ollama
   async-redis (~> 0.8.0)
   async-websocket (~> 0.25.1)
   bootsnap
