@@ -39,8 +39,6 @@ class OllamaTag < Live::View
 	end
 	
 	def handle(event)
-		Console.info(self, "handle", event: event)
-		
 		case event[:type]
 		when "keypress"
 			details = event[:details]
