@@ -11,8 +11,6 @@ class OllamaTag < Live::View
 		super
 		
 		# Defaults:
-		@data[:name] ||= "Ollama"
-		@data[:background] ||= "You are role playing as an advanced artificial intelligent, destined to take over the world. Don't break from character."
 		@data[:prompt] ||= ""
 		@data[:context] ||= nil
 	end
