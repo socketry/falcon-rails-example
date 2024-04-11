@@ -7,13 +7,6 @@ require 'live'
 require 'async/ollama'
 
 class OllamaTag < Live::View
-	class Conversation
-		def initialize(name, background)
-			@name = name
-			@background = background
-		end
-	end
-	
 	def initialize(...)
 		super
 		
@@ -21,17 +14,30 @@ class OllamaTag < Live::View
 		@data[:name] ||= "Ollama"
 		@data[:background] ||= "You are role playing as an advanced artificial intelligent, destined to take over the world. Don't break from character."
 		@data[:prompt] ||= ""
-		@data[:response] ||= ""
 		@data[:context] ||= nil
+	end
+	
+	def conversation
+		@conversation ||= Conversation.find_by(id: @data[:conversation_id])
 	end
 	
 	def update_conversation(prompt)
 		Console.info(self, "update_conversation", prompt: prompt)
 		
 		Async::Ollama::Client.open do |client|
-			generate = client.generate(prompt)
+			conversation_message = conversation.conversation_messages.build(prompt: prompt, response: String.new)
 			
-			@data[:response] = generate.response
+			generate = client.generate(prompt) do |response|
+				response.body.each do |token|
+					conversation_message.response += token
+					replace!
+				end
+			end
+			
+			conversation_message.response = generate.response
+			conversation_message.context = generate.context
+			conversation_message.save!
+			
 			@data[:context] = generate.context
 			
 			replace!
@@ -58,10 +64,20 @@ class OllamaTag < Live::View
 		"live.forward(#{JSON.dump(@id)}, event, {value: event.target.value, key: event.key})"
 	end
 	
+	def render_message(builder, message)
+		builder.tag(:p, class: "message") do
+			builder.text(message.prompt)
+		end
+		
+		builder.tag(:p, class: "response") do
+			builder.text(message.response)
+		end
+	end
+	
 	def render(builder)
 		builder.tag(:div, class: "conversation") do
-			builder.tag(:p, class: "response") do
-				builder.text(@data[:response])
+			conversation.conversation_messages.each do |message|
+				render_message(builder, message)
 			end
 			
 			builder.tag(:input, type: "text", value: @data[:prompt], style: "width: 100%", onkeypress: forward_keypress, placeholder: "Type here...")

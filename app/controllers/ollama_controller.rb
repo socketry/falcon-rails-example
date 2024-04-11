@@ -4,7 +4,13 @@ class OllamaController < ApplicationController
   RESOLVER = Live::Resolver.allow(OllamaTag)
 
   def index
-    @tag = OllamaTag.new('ollama')
+    if id = params[:id]
+      @conversation = Conversation.find(id)
+    else
+      @conversation = Conversation.create!(model: 'llama2:13b')
+    end
+
+    @tag = OllamaTag.new('ollama', conversation_id: @conversation.id)
   end
 
   skip_before_action :verify_authenticity_token, only: :live
