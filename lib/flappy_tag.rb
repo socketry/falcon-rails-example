@@ -136,7 +136,6 @@ class FlappyTag < Live::View
 		end
 		
 		def intersect?(other)
-			Console.info(self, "intersect?", lower_bounding_box: lower_bounding_box, upper_bounding_box: upper_bounding_box, other: other)
 			lower_bounding_box.intersect?(other) || upper_bounding_box.intersect?(other)
 		end
 		
@@ -181,17 +180,15 @@ class FlappyTag < Live::View
 			Pipe.new(WIDTH * 1/2, HEIGHT/2),
 			Pipe.new(WIDTH * 2/2, HEIGHT/2)
 		]
-		@data[:score] = 0
+		@score = 0
 	end
 	
 	def game_over!
-		reset!
+		Highscore.create!(name: "Anonymous", score: @score)
 		
 		@prompt = "Game Over! Score: #{@score}. Press Space to Restart"
 		@game = nil
-		
 		replace!
-		
 		raise Async::Stop
 	end
 	
@@ -211,7 +208,7 @@ class FlappyTag < Live::View
 			pipe.step(dt)
 			
 			if pipe.right < @bird.x && !pipe.scored
-				@data[:score] += 1
+				@score += 1
 				pipe.scored = true
 			end
 			
@@ -242,11 +239,19 @@ class FlappyTag < Live::View
 		builder.tag(:div, class: "flappy", tabIndex: 0, onKeyPress: forward_keypress) do
 			if @game
 				builder.inline_tag(:div, class: "score") do
-					builder.text(@data[:score])
+					builder.text(@score)
 				end
 			else
 				builder.inline_tag(:div, class: "prompt") do
 					builder.text(@prompt)
+					
+					builder.inline_tag(:ol, class: "highscores") do
+						Highscore.order(score: :desc).limit(10).each do |highscore|
+							builder.inline_tag(:li) do
+								builder.text("#{highscore.name}: #{highscore.score}")
+							end
+						end
+					end
 				end
 			end
 			

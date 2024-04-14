@@ -16,6 +16,10 @@
 	position: relative;
 }
 
+.flappy .highscores {
+	color: white;
+}
+
 .flappy .prompt {
 	z-index: 20;
 	padding: 1rem;
