@@ -40,6 +40,8 @@
 	background-image: url('/assets/flappy-bird.png');
 	position: absolute;
 	background-size: contain;
+	
+	transition: all 0.05s linear 0s;
 }
 
 .flappy .pipe {
@@ -47,4 +49,6 @@
 	background-image: url('/assets/flappy-pipe.png');
 	position: absolute;
 	background-size: contain;
+	
+	transition: all 0.05s linear 0s;
 }

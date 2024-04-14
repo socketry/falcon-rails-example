@@ -68,7 +68,10 @@ class FlappyTag < Live::View
 		end
 		
 		def render(builder)
-			builder.inline_tag(:div, class: 'bird', style: "left: #{@x}px; bottom: #{@y}px; width: #{@width}px; height: #{@height}px;")
+			rotation = (@velocity / 20.0).clamp(-40.0, 40.0)
+			rotate = "rotate(#{-rotation}deg)";
+			
+			builder.inline_tag(:div, class: 'bird', style: "left: #{@x}px; bottom: #{@y}px; width: #{@width}px; height: #{@height}px; transform: #{rotate};")
 		end
 	end
 	
@@ -140,8 +143,10 @@ class FlappyTag < Live::View
 		end
 		
 		def render(builder)
-			builder.inline_tag(:div, class: 'pipe', style: "left: #{@x}px; bottom: #{self.bottom}px; width: #{@width}px; height: #{@height}px;")
-			builder.inline_tag(:div, class: 'pipe', style: "left: #{@x}px; bottom: #{self.top}px; width: #{@width}px; height: #{@height}px;")
+			display = "display: none;" if @x > WIDTH
+			
+			builder.inline_tag(:div, class: 'pipe', style: "left: #{@x}px; bottom: #{self.bottom}px; width: #{@width}px; height: #{@height}px; #{display}")
+			builder.inline_tag(:div, class: 'pipe', style: "left: #{@x}px; bottom: #{self.top}px; width: #{@width}px; height: #{@height}px; #{display}")
 		end
 	end
 	
@@ -184,7 +189,9 @@ class FlappyTag < Live::View
 	end
 	
 	def game_over!
-		Highscore.create!(name: "Anonymous", score: @score)
+		Highscore.connection_pool.with_connection do
+			Highscore.create!(name: "Anonymous", score: @score)
+		end
 		
 		@prompt = "Game Over! Score: #{@score}. Press Space to Restart"
 		@game = nil
@@ -222,7 +229,7 @@ class FlappyTag < Live::View
 		end
 	end
 	
-	def run!(dt = 1.0/60.0)
+	def run!(dt = 1.0/20.0)
 		Console.info(self, "run!")
 		
 		Async do
@@ -246,9 +253,11 @@ class FlappyTag < Live::View
 					builder.text(@prompt)
 					
 					builder.inline_tag(:ol, class: "highscores") do
-						Highscore.order(score: :desc).limit(10).each do |highscore|
-							builder.inline_tag(:li) do
-								builder.text("#{highscore.name}: #{highscore.score}")
+						Highscore.connection_pool.with_connection do
+							Highscore.order(score: :desc).limit(10).each do |highscore|
+								builder.inline_tag(:li) do
+									builder.text("#{highscore.name}: #{highscore.score}")
+								end
 							end
 						end
 					end
