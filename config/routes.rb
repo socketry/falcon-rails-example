@@ -24,4 +24,8 @@ Rails.application.routes.draw do
   # Ollama Example:
   get "ollama/index"
   match "ollama/live", via: [:get, :connect]
+
+  # Flappy Example:
+  get "flappy/index"
+  match "flappy/live", via: [:get, :connect]
 end
