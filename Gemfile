@@ -79,6 +79,6 @@ gem "traces-backend-datadog", "~> 0.5.0"
 
 gem "async-redis", "~> 0.8.0"
 gem "thread-local", "~> 1.1"
-gem "async-websocket", "~> 0.25.1"
+gem "async-websocket", "~> 0.26.1"
 
 gem "live", "~> 0.5.0"
