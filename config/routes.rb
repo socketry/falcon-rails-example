@@ -28,4 +28,8 @@ Rails.application.routes.draw do
   # Flappy Example:
   get "flappy/index"
   match "flappy/live", via: [:get, :connect]
+
+  # SSE Example:
+  get 'sse/index'
+  get 'sse/events'
 end

@@ -1,0 +1,13 @@
+<h1>SSE Events</h1>
+
+<div id="history"></div>
+<script>
+	var eventSource = new EventSource("events");
+	eventSource.addEventListener("message", function(event) {
+		var container = document.createElement("p");
+		container.innerText = event.data;
+		var history = document.querySelector("#history");
+		history.appendChild(container);
+		history.scrollTop = history.scrollHeight;
+	});
+</script>
