@@ -23,5 +23,8 @@ module Example
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Disallow permanent checkout of activerecord connections (request scope):
+    config.active_record.permanent_connection_checkout = :disallowed
   end
 end
