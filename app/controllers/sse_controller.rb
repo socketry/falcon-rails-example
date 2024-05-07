@@ -7,7 +7,7 @@ class SseController < ApplicationController
 	}
 
 	def events
-		Highscore.with_connection(prevent_permanent_checkout: true) do
+		Highscore.with_connection do
 			highscore_id = Highscore.last.id
 		end
 		
